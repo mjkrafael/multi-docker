@@ -1,0 +1,16 @@
+# #---//// Secuencia para WSL2
+FROM node:14.14.0-alpine
+
+#super usuario de la imagen
+USER node
+ 
+#se reasgina el directorio con todos los permisos
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
+ 
+#asignacion de propietario
+COPY --chown=node:node ./package.json ./
+RUN npm install
+COPY --chown=node:node ./ ./
+ 
+CMD ["npm", "run", "start"]
